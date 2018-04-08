@@ -44,8 +44,8 @@
 	}
 }
 
-\title{Tên đề tài}						% Tiêu đề luận văn
-\author{Họ tên sinh viên}				% Người thực hiện 
+\title{Nhận dạng biển báo giao thông bằng Fast-RCNN}		% Tiêu đề luận văn
+\author{Ngô Nguyễn Gia Bảo - B1401119 \and Dương Lữ Điện - B1401133}				% Người thực hiện 
 
 % Header và footer 
 \pagestyle{fancy}
@@ -60,10 +60,10 @@
 % \fancyfoot[RE]{Họ tên sinh viên - Mã SV}				% Footer mép trong
 
 % Header và footer nếu in 1 mặt
-\rhead{Giảng viên hướng dẫn:\\TS. ABCXYZ}					% Header bên phải
-\lhead{Đề tài:\\Tên đề tài}									% Header bên trái
+\rhead{Giảng viên hướng dẫn:\\TS. Trần Công Án}					% Header bên phải
+\lhead{Đề tài:\\Nhận dạng biển báo giao thông bằng Fast-RCNN}									% Header bên trái
 \rfoot{\thepage}											% Footer bên phải
-\lfoot{Họ tên sinh viên - Mã SV}							% Footer bên trái
+\lfoot{Ngô Nguyễn Gia Bảo - B1401119\\Dương Lữ Điện - B1401133}							% Footer bên trái
 
 \begin{document}
 \subfile{bia-ngoai}		% Gọi file bìa ngoài
@@ -81,12 +81,24 @@
 \listoffigures
 \listoftables
 
-\chapter{Tiêu đề chương 1}
-\pagenumbering{arabic}			% Kiểu số trang: 1, 2, 3,...
+\pagenumbering{arabic}	% Kiểu số trang: 1, 2, 3,...
+
+\part{GIỚI THIỆU}
+
+\subfile{chapters/gioi-thieu}
+
+\part{NỘI DUNG}
+
+\chapter{CƠ SỞ LÝ THUYẾT}
 \subfile{chapters/chapter01}	% Gọi file chương 1, tương tự gọi các chương khác
 
-\chapter{Tiêu đề chương 2}
+\chapter{THIẾT KẾ MÔ HÌNH}
 \subfile{chapters/chapter02}
+
+\chapter{KIỂM THỬ VÀ ĐÁNH GIÁ}
+
+\part{KẾT LUẬN}
+\subfile{chapters/ket-luan}
 
 \chapter*{THAM KHẢO}
 \subfile{chapters/tham-khao}
