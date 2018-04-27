@@ -1,15 +1,5 @@
-% Mẫu luận văn ĐHCT soạn thảo bằng LaTeX, phiên bản 1.0
-% ====================================================================
-% Tác giả: 				Dương Lữ Điện
-% Website:				www.duongludien.com
-% GitHub repository:	https://github.com/duongludien/thesis-template
-% ====================================================================
-
-% twoside, openright: 2 mặt, trang đầu chương luôn nằm bên tay phải
-% \documentclass[a4paper,12pt,twoside,openright]{report}	
-
 % oneside: 1 mặt
-\documentclass[a4paper,12pt,oneside]{report}	% oneside: 1 mặt
+\documentclass[a4paper,12pt,oneside]{report}
 
 % Tiếng Việt
 \usepackage[utf8]{vietnam}
@@ -44,26 +34,18 @@
 	}
 }
 
-\title{Nhận dạng biển báo giao thông bằng Fast-RCNN}		% Tiêu đề luận văn
-\author{Ngô Nguyễn Gia Bảo - B1401119 \and Dương Lữ Điện - B1401133}				% Người thực hiện 
+\title{Nhận dạng biển báo giao thông bằng Fast-RCNN}						% Tiêu đề luận văn
+\author{Ngô Nguyễn Gia Bảo - B1401119 \and Dương Lữ Điện - B1401133}		% Người thực hiện 
 
 % Header và footer 
 \pagestyle{fancy}
 \fancyhf{}
 
-% Header và footer nếu in 2 mặt
-% \rhead{Giảng viên hướng dẫn:\\TS. ABCXYZ}				% Header bên phải
-% \lhead{Đề tài:\\Tên đề tài}							% Header bên trái
-% \fancyfoot[RO]{\thepage}								% Footer mép ngoài
-% \fancyfoot[LE]{\thepage}								% Footer mép ngoài
-% \fancyfoot[LO]{Họ tên sinh viên - Mã SV}				% Footer mép trong
-% \fancyfoot[RE]{Họ tên sinh viên - Mã SV}				% Footer mép trong
-
 % Header và footer nếu in 1 mặt
-\rhead{Giảng viên hướng dẫn:\\TS. Trần Công Án}					% Header bên phải
-\lhead{Đề tài:\\Nhận dạng biển báo giao thông bằng Fast-RCNN}									% Header bên trái
-\rfoot{\thepage}											% Footer bên phải
-\lfoot{Ngô Nguyễn Gia Bảo - B1401119\\Dương Lữ Điện - B1401133}							% Footer bên trái
+\rhead{Giảng viên hướng dẫn:\\TS. Trần Công Án}						% Header bên phải
+\lhead{Đề tài:\\Nhận dạng biển báo giao thông bằng Fast-RCNN}		% Header bên trái
+\rfoot{\thepage}													% Footer bên phải
+\lfoot{Ngô Nguyễn Gia Bảo - B1401119\\Dương Lữ Điện - B1401133}		% Footer bên trái
 
 \begin{document}
 \subfile{bia-ngoai}		% Gọi file bìa ngoài
@@ -81,16 +63,15 @@
 \listoffigures
 \listoftables
 
+\clearpage
 \pagenumbering{arabic}	% Kiểu số trang: 1, 2, 3,...
-
 \part{GIỚI THIỆU}
-
 \subfile{chapters/gioi-thieu}
 
 \part{NỘI DUNG}
 
 \chapter{CƠ SỞ LÝ THUYẾT}
-\subfile{chapters/chapter01}	% Gọi file chương 1, tương tự gọi các chương khác
+\subfile{chapters/chapter01}
 
 \chapter{THIẾT KẾ MÔ HÌNH}
 \subfile{chapters/chapter02}
