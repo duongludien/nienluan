@@ -6,7 +6,7 @@
 
 Convolutional Neural Networks (CNNs) là một kiến trúc mạng neurons giả định trước rằng dữ liệu đầu vào là dữ liệu ảnh, cho phép trích xuất các thuộc tính trong dữ liệu ảnh đó. Điều này khiến cho việc tính toán trở nên hiệu quả và giảm đáng kể số lượng tham số trong mạng.
 
-Không giống như các mạng neurons thông thường, các lớp của CNNs gồm các neurons có dạng ma trận 3 chiều: chiều rộng, chiều cao, chiều sâu. CNNs sử dụng các filters để tính toán trên các điểm ảnh và trích xuất các đặc trưng có ích cho việc phân lớp.
+Không giống như các mạng neurons thông thường, các lớp của CNNs gồm các neurons có dạng ma trận 3 chiều: chiều rộng, chiều cao, chiều sâu. CNNs sử dụng các filters để tính toán trên các điểm ảnh và trích xuất các đặc trưng có ích cho việc phân lớp.\cite{cs231n}
 \begin{figure}[!htb]
 	\begin{minipage}{0.48\textwidth}
 		\centering
@@ -20,7 +20,7 @@ Không giống như các mạng neurons thông thường, các lớp của CNNs 
 	\end{minipage}
 \end{figure}
 
-Các CNNs gồm 3 thành phần chính: 
+Các CNNs gồm 3 thành phần chính \cite{tfcnn}: 
 
 \begin{itemize}
   \item Lớp convolutional: sử dụng các convolution filters để tính toán trên ảnh đầu vào, tại mỗi vùng trên ảnh, layer này thực hiện một số phép toán để tạo ra một giá trị duy nhất cho feature map đầu ra. Lớp convolutional thường sử dụng hàm kích hoạt ReLU cho feature map đầu ra.

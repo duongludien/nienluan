@@ -13,6 +13,8 @@
 \usepackage{fancyhdr}			% Dùng để tạo header và footer
 \usepackage{emptypage}			% Không đánh số trang, header, footer với các trang trắng
 \usepackage{tabularx}			% Dùng để chèn bảng
+\usepackage{cite}				% Dùng cho tài liệu tham khảo
+\usepackage{url}				% Dùng cho URL
 
 % Định dạng cho code
 \usepackage{fancyvrb}			% Phiên bản nâng cao của verbatim, dùng để chèn code
@@ -80,5 +82,8 @@
 % 
 % \chapter*{THAM KHẢO}
 % \subfile{chapters/tham-khao}
+
+\bibliography{mybib}{}
+\bibliographystyle{plain}
 
 \end{document}
