@@ -4,9 +4,11 @@
 
 \section{Convolutional Neural Networks}
 
-Convolutional Neural Networks (CNNs) là một kiến trúc mạng neurons giả định trước rằng dữ liệu đầu vào là dữ liệu ảnh, cho phép trích xuất các thuộc tính trong dữ liệu ảnh đó. Điều này khiến cho việc tính toán trở nên hiệu quả và giảm đáng kể số lượng tham số trong mạng.
+\subsection{Convolutional Neural Networks là gì?}
 
-Không giống như các mạng neurons thông thường, các lớp của CNNs gồm các neurons có dạng ma trận 3 chiều: chiều rộng, chiều cao, chiều sâu. CNNs sử dụng các filters để tính toán trên các điểm ảnh và trích xuất các đặc trưng có ích cho việc phân lớp.\cite{cs231n}
+Convolutional Neural Networks (CNNs) \cite{cs231n} là một kiến trúc mạng neurons giả định trước rằng dữ liệu đầu vào là dữ liệu ảnh, cho phép trích xuất các thuộc tính nhất định trong dữ liệu ảnh đó. Điều này khiến cho việc tính toán trở nên hiệu quả và giảm đáng kể số lượng tham số trong mạng.
+
+Không giống như các mạng neurons thông thường, các lớp của CNNs gồm các neurons có dạng ma trận 3 chiều: chiều rộng (width), chiều cao (height), chiều sâu (depth). Có thể thấy rằng, các neurons trong một lớp chỉ kết nối với một vùng nhỏ của lớp phía trước nó. 
 \begin{figure}[!htb]
 	\begin{minipage}{0.48\textwidth}
 		\centering
@@ -20,27 +22,123 @@ Không giống như các mạng neurons thông thường, các lớp của CNNs 
 	\end{minipage}
 \end{figure}
 
-Các CNNs gồm 3 thành phần chính \cite{tfcnn}: 
+\subsection{Các thành phần của CNNs}
+
+CNNs được tạo thành từ các lớp, mỗi lớp là một đơn vị tính toán cho phép chuyển đổi một ma trận 3 chiều thành một ma trận 3 chiều khác. CNNs gồm 3 thành phần chính\cite{tfcnn}: 
 
 \begin{itemize}
-  \item Lớp convolutional: sử dụng các convolution filters để tính toán trên ảnh đầu vào, tại mỗi vùng trên ảnh, layer này thực hiện một số phép toán để tạo ra một giá trị duy nhất cho feature map đầu ra. Lớp convolutional thường sử dụng hàm kích hoạt ReLU cho feature map đầu ra.
+  \item Lớp convolutional: là thành phần quan trọng nhất trong CNNs, sử dụng các learnable filters để tính toán trên ảnh đầu vào, tại mỗi vùng trên ảnh, layer này thực hiện một số phép toán () để tạo ra một giá trị duy nhất cho feature map đầu ra. Lớp convolutional thường sử dụng hàm kích hoạt ReLU cho feature map đầu ra.
   \item Lớp pooling: thường nằm sau một convolutional layer để làm giảm kích cỡ (chiều rộng, chiều cao) của feature map để giảm thời gian tính toán. Một thuật toán pooling thường được sử dụng là max pooling.
-  \item Dense (fully-connected) layers: thực hiện việc phân lớp dựa trên feature map được trích xuất từ lớp convolutional và lớp pooling.
+  \item Lớp dense (fully-connected): thực hiện việc phân lớp dựa trên feature map được trích xuất từ lớp convolutional và lớp pooling.
 \end{itemize}
 
 \begin{figure}[!htb]
 	\begin{minipage}{0.48\textwidth}
 		\centering
 		\includegraphics[width=.82\linewidth]{depthcol.jpeg}
-		\caption{Regular Neural Network}\label{Fig:depthcol}
+		\caption{Một lớp convolutional}\label{Fig:depthcol}
 	\end{minipage}\hfill
 	\begin {minipage}{0.48\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{neuron_model.jpeg}
-		\caption{Convolutional Neural Network}\label{Fig:neural_model}
+		\caption{Một neuron trong CNNs}\label{Fig:neural_model}
 	\end{minipage}
 \end{figure}
 
 \section{Region-based Convolutional Neural Networks}
+
+Region-based Convolutional Neural Networks (R-CNNs) là một mô hình nhận dạng vật thể (Object detection Model) do Ross Girshick, Jeff Donahue, Trevor Darrell và Jitendra Malik (UC Berkeley) đề xuất. Ý tưởng mô hình là với mỗi dữ liệu đầu vào, thực hiện trích xuất (extract) region proposals, trích xuất vector đặc trưng cho mỗi region, từ đó tiến hành việc phân lớp. Giai đoạn cuối cùng là hiệu chỉnh lại tọa độ của các region bằng một mô hình linear regression đơn giản.
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=\linewidth]{rcnn.PNG}
+	\caption{Kiến trúc của R-CNNs}\label{Fig:rcnn}
+\end{figure}
+
+\subsection{Selective search}
+
+Kết hợp thế mạnh của Exhaustive search và Segmentation, Selective search giúp định vị vị trí của vật thể trong dữ liệu ảnh một cách hiệu quả. Đầu tiên, tập R gồm các initial region được khởi tạo. Tiếp đến, tính độ tương đồng (similarity) giữa các cặp region láng giềng. Các cặp region tương tự nhau nhất sẽ được gộp lại, đồng thời độ tương đồng sẽ được làm mới. Quá trình lặp đi lặp lại cho đến khi dữ liệu ảnh chỉ còn một region duy nhất.
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.65\linewidth]{selective-search.PNG}
+	\caption{Pseudocode của selective search}\label{Fig:selective_search}
+\end{figure}
+
+Selective search được sử dụng trong giai đoạn trích xuất region proposal của mô hình R-CNN. Với mỗi dữ liệu ảnh, giải thuật thực hiện khoanh vùng 2000 region làm cơ sở cho việc trích xuất vector đặc trưng.
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.65\linewidth]{rcnn_extract_reigions.PNG}
+	\caption{Extract regions trong R-CNN}\label{Fig:rcnn_extract_regions}
+\end{figure}
+
+\subsection{Feature extraction}
+
+Mỗi region sẽ được truyền thẳng (feed forward) qua một mạng CNN với nhiều lớp convolutional, pooling và fully connected. Vector đặc trưng sẽ được tính toán ra ở lớp fully connected gần với lớp output nhất.
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.65\linewidth]{features_extraction.PNG}
+	\caption{Features extraction trong R-CNN}\label{Fig:rcnn_features_extraction}
+\end{figure}
+
+Để việc trích xuất đặc trưng có hiệu quả tốt, mạng CNN được huấn luyện với một tập dữ liệu lớn, sau đó thực hiện fine-tuning bằng các mẫu dữ liệu positive và negative được phân loại từ các region. Những region có tỷ lệ IoU\footnote{Intersection over union} với ground-truth box $\geq$ 0.5 sẽ được tính là positive, còn lại là negative.
+
+\subsection{SVM classifiers}
+
+Bộ phân lớp SVM có nhiệm vụ gắn nhãn cho các region. Việc huấn luyện các mô hình SVM diễn ra tương đối đơn giản:
+
+\begin{itemize}
+	\item Tạo các mẫu dữ liệu positive và negative. Positive được lấy từ ground-truth box, còn negative là các region có tỷ lệ IoU với ground-truth box < 0.3.
+	\item Chọn ra các negative “khó” bằng phương pháp hard negative mining. Việc này giúp giảm bớt số lượng mẫu negative, đồng thời tăng hiệu quả huấn luyện.
+	\item Tiến hành huấn luyện mô hình trên tập positive và negative. Tập dữ liệu trước tiên sẽ được trích xuất đặc trưng thông qua mạng CNN.
+\end{itemize}
+
+Ở giai đoạn predict, vector đặc trưng sẽ đi qua các bộ phân lớp SVM, từ đó nhãn tương ứng sẽ được gán.
+
+\subsection{Bounding-box regression}
+
+Sau khi đã phân lớp xong, vector đặc trưng được truyền qua một mô hình hồi quy tuyến tính để hiệu chỉnh vị trí của Bounding-box. Hàm lỗi của mô hình được định nghĩa như sau:
+
+% TODO: Bổ sung phần loss function tại đây
+
+\section{Fast R-CNN}
+
+% TODO: Bổ sung phần này
+
+\section{Faster R-CNN}
+
+Fast R-CNN cải thiện thời gian thực thi và không gian lưu trữ bằng cách chia sẻ tính toán đối với hàng nghìn region. Tuy nhiên vẫn còn một tồn tại, đó là sự nghẽn cổ chai giữa quá trình trích xuất RoI và quá trình RoI Pooling. Các RoI được tạo ra bằng giải thuật Selective search, vốn không tận dụng được sức mạnh xử lý của GPU. Để giải quyết vấn đề trên, mô hình Faster R-CNN ra đời. Thay vì dùng các giải thuật truyền thống để trích xuất region proposal, Faster R-CNN thiết kế một mô hình CNN với tên gọi Region Proposal Network để thực hiện điều này.
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.65\linewidth]{faster-rcnn.PNG}
+	\caption{Faster R-CNN}\label{Fig:faster_rcnn}
+\end{figure}
+
+\subsection{Region Proposal Network}
+
+Region Proposal Network (RPN) nhận đầu vào là feature map của dữ liệu ảnh và xuất ra một tập các region proposal chứa các thông tin về nhãn[chú thích] và vị trí. Có thể hình dung RPN như một cửa sổ trượt. Cửa sổ này trượt qua từng location có kích thước  trên feature map và tính toán ra vector đặc trưng. Vector này được feed forward vào 2 lớp fully connected để dự đoán nhãn và vị trí.
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.65\linewidth]{rpn.PNG}
+	\caption{Region Proposal Network}\label{Fig:rpn}
+\end{figure}
+
+\section{Anchor}
+
+Tại mỗi location , có k anchor được tạo ra. Mỗi anchor được định nghĩa bởi tâm của location, scale và aspect ratio. Mặc định có 3 scale và 3 aspect ratio nên , tức là có 9 anchor (các anchor này cùng có chung một tâm).
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.65\linewidth]{anchors.PNG}
+	\caption{Anchors}\label{Fig:anchors}
+\end{figure}
+
+\subsection{Loss function}
+
+% TODO: Còn nữa
 
 \end{document}
