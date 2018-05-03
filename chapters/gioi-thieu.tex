@@ -6,7 +6,7 @@
 
 Những năm gần đây, với sự bùng nổ của cuộc cách mạng Công nghiệp 4.0 mà một trong ba trụ cột chính là Thông minh nhân tạo (Artificial Intelligence - AI), các sản phẩm liên quan đến AI ngày càng phổ biến, trong đó nổi bật nhất có lẽ là lĩnh vực Thị giác máy tính (Computer Vision), điển hình là sự ra đời của xe tự lái. 
 
-Bắt kịp xu hướng hiện đại này, nhóm nghiên cứu của chúng tôi đã thực hiện đề tài này, ``Nhận dạng biển báo giao thông bằng giải thuật Faster R-CNN'', một module trong quy trình vận hành của xe tự lái.
+Bắt kịp xu hướng hiện đại này, nhóm nghiên cứu của chúng tôi đã thực hiện đề tài ``Nhận dạng biển báo giao thông bằng giải thuật Faster R-CNN'', một module trong quy trình vận hành của xe tự lái.
 
 \section{Lịch sử giải quyết vấn đề}
 
@@ -18,7 +18,7 @@ Mục tiêu của đề tài này là xây dựng một hệ thống nhận dạ
 
 \section{Đối tượng và phạm vi nghiên cứu}
 
-Đề tài này áp dụng giải thuật Faster R-CNN, TensorFlow Object Detection API cho bài toán nhận dạng biển báo giao thông, giới hạn trên địa bàn thành phố Cần Thơ. 
+Đề tài này áp dụng giải thuật Faster R-CNN, TensorFlow Object Detection API cho bài toán nhận dạng biển báo giao thông, giới hạn các biển báo trên địa bàn thành phố Cần Thơ. 
 
 \section{Phương pháp nghiên cứu}
 
@@ -32,7 +32,13 @@ Mục tiêu của đề tài này là xây dựng một hệ thống nhận dạ
 
 \section{Kết quả đạt được}
 
-% TODO: Hoàn thành phần này
+Sau khi hoàn thành đề tài, kết quả đạt được gồm có:
+
+\begin{itemize}
+  \item Tập dữ liệu biển báo giao thông trên địa bàn thành phố Cần Thơ. Tập dữ liệu với hơn 3000 ảnh định dạng PNG với 32 loại biển báo phổ biến. Tập dữ liệu được chia thành 2 tập con: training set (dữ liệu dùng cho training) và test set (dùng cho việc đánh giá mô hình).
+  \item Mô hình nhận dạng. Mô hình nhận dạng đã được train 200,000 steps với tập dữ liệu trên.
+  \item Báo cáo. Báo cáo rõ các cơ sở lý thuyết và quá trình thực hiện đề tài.
+\end{itemize}
 
 \section{Bố cục báo cáo}
 
