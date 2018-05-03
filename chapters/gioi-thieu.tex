@@ -4,16 +4,44 @@
 
 \section{Đặt vấn đề}
 
+Những năm gần đây, với sự bùng nổ của cuộc cách mạng Công nghiệp 4.0 mà một trong ba trụ cột chính là Thông minh nhân tạo (Artificial Intelligence - AI), các sản phẩm liên quan đến AI ngày càng phổ biến, trong đó nổi bật nhất có lẽ là lĩnh vực Thị giác máy tính (Computer Vision), điển hình là sự ra đời của xe tự lái. 
+
+Bắt kịp xu hướng hiện đại này, nhóm nghiên cứu của chúng tôi đã thực hiện đề tài này, ``Nhận dạng biển báo giao thông bằng giải thuật Faster R-CNN'', một module trong quy trình vận hành của xe tự lái.
+
 \section{Lịch sử giải quyết vấn đề}
+
+Do đặc thù về địa hình và cơ sở hạ tầng mà các loại biển báo ở các nước là tương đối khác nhau, do đó mà các mô hình nhận dạng biển báo cũng khác nhau ít nhiều. Tại Việt Nam, đã có không ít các mô hình nhận dạng biển báo được xây dựng, điển hình là mô hình ``Phát hiện và nhận dạng biển báo giao thông đường bộ sử dụng đặc trưng HOG và mạng nơron nhân tạo'' do nhóm nghiên cứu Đại học Cần Thơ thực hiện.
 
 \section{Mục tiêu đề tài}
 
+Mục tiêu của đề tài này là xây dựng một hệ thống nhận dạng biển báo giao thông theo một hướng tiếp cận mới nhằm tăng hiệu quả nhận dạng, giảm thời gian tính toán, áp dụng những thành quả nghiên cứu mới nhất trong lĩnh vực Thị giác máy tính như Convolutional Neural Networks, giải thuật Faster R-CNN, một trong những ``state of the art'' cho bài toán nhận dạng vật thể (object detection).
+
 \section{Đối tượng và phạm vi nghiên cứu}
+
+Đề tài này áp dụng giải thuật Faster R-CNN, TensorFlow Object Detection API cho bài toán nhận dạng biển báo giao thông, giới hạn trên địa bàn thành phố Cần Thơ. 
 
 \section{Phương pháp nghiên cứu}
 
+\begin{itemize}
+  \item Thu thập dữ liệu biển báo giao thông trên địa bàn khảo sát.
+  \item Tiến hành tiền xử lý dữ liệu.
+  \item Tiến hành phân loại và gán nhãn cho dữ dữ liệu ảnh.
+  \item Cài đặt giải thuật học trên tập dữ liệu thu được.
+  \item Đánh giá hiệu quả giải thuật học.
+\end{itemize}
+
 \section{Kết quả đạt được}
 
+% TODO: Hoàn thành phần này
+
 \section{Bố cục báo cáo}
+
+Bố cục báo cáo gồm 3 phần:
+
+\begin{enumerate}
+  \item Cơ sở lý thuyết. Trình bày sơ lược về những cơ sở lý thuyết quan trọng có liên quan như Convolutional Neural Networks, R-CNN, Fast R-CNN, Faster R-CNN.
+  \item Thiết kế mô hình. Trình bày cụ thể về mô hình cho bài toán nhận dạng biển báo giao thông.
+  \item Kết quả đạt được và hướng phát triển. Trình bày kết quả đạt được và những hướng phát triển trong tương lai.
+\end{enumerate}
 
 \end{document}
