@@ -7,14 +7,16 @@
 % Dùng để set margin
 \usepackage[top=3cm,inner=3.5cm,outer=2cm,bottom=3cm,headheight=120pt]{geometry}		
 
-\usepackage{graphicx}			% Dùng để chèn hình ảnh
-\graphicspath{ {images/} }		% Folder chứa hình ảnh
-\usepackage{subfiles}			% Dùng để chia thành các files nhỏ
-\usepackage{fancyhdr}			% Dùng để tạo header và footer
-\usepackage{emptypage}			% Không đánh số trang, header, footer với các trang trắng
-\usepackage{tabularx}			% Dùng để chèn bảng
-\usepackage{cite}				% Dùng cho tài liệu tham khảo
-\usepackage{url}				% Dùng cho URL
+\usepackage{graphicx}								% Dùng để chèn hình ảnh
+\graphicspath{ {images/} }							% Folder chứa hình ảnh
+\usepackage{subfiles}								% Dùng để chia thành các files nhỏ
+\usepackage{fancyhdr}								% Dùng để tạo header và footer
+\usepackage{emptypage}								% Không đánh số trang, header, footer với các trang trắng
+\usepackage{tabularx}								% Dùng để chèn bảng
+% \usepackage[superscript]{cite}					
+\usepackage[square]{natbib}							% Dùng cho tài liệu tham khảo
+\setcitestyle{super}								% Ký hiệu tài liệu tham khảo dạng superscript
+\usepackage{url}									% Dùng cho URL
 
 % Định dạng cho code
 \usepackage{fancyvrb}			% Phiên bản nâng cao của verbatim, dùng để chèn code
@@ -50,6 +52,7 @@
 \lfoot{\fontsize{10}{10} \selectfont Ngô Nguyễn Gia Bảo - B1401119\\Dương Lữ Điện - B1401133}		% Footer bên trái
 
 \begin{document}
+
 \subfile{bia-ngoai}		% Gọi file bìa ngoài
 \subfile{bia-trong}		% Gọi file bìa trong
 
