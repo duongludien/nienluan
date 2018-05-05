@@ -8,7 +8,7 @@
 
 Convolutional Neural Network (CNN) là một kiến trúc mạng neurons giả định trước rằng dữ liệu đầu vào là dữ liệu ảnh, cho phép trích xuất các thuộc tính nhất định trong dữ liệu ảnh đó. Điều này khiến cho việc tính toán trở nên hiệu quả và giảm đáng kể số lượng tham số trong mạng \cite{cs231n}.
 
-Không giống như các mạng neurons thông thường, các lớp của CNNs gồm các neurons có dạng ma trận 3 chiều: chiều rộng (width), chiều cao (height), chiều sâu (depth). Có thể thấy rằng, các neurons trong một lớp chỉ kết nối với một vùng nhỏ của lớp phía trước nó \cite{cs231n}.
+Không giống như các mạng neurons thông thường, các lớp của CNN gồm các neurons có dạng ma trận 3 chiều: chiều rộng (width), chiều cao (height), chiều sâu (depth). Có thể thấy rằng, các neurons trong một lớp chỉ kết nối với một vùng nhỏ của lớp phía trước nó \cite{cs231n}.
 \begin{figure}[!htb]
 	\begin{minipage}{0.48\textwidth}
 		\centering
@@ -22,14 +22,31 @@ Không giống như các mạng neurons thông thường, các lớp của CNNs 
 	\end{minipage}
 \end{figure}
 
-\subsection{Các thành phần của CNNs}
+\subsection{Kiến trúc cơ bản của CNN}
 
-CNNs được tạo thành từ các lớp, mỗi lớp là một đơn vị tính toán cho phép chuyển đổi một ma trận 3 chiều thành một ma trận 3 chiều khác. CNNs gồm 3 thành phần chính\cite{tfcnn}: 
+Các mô hình CNN cơ bản thường bắt đầu bằng một conv layer và kết thúc bằng một (vài) fully connected layer. Ở giữa người ta thường chèn thêm các conv và pooling layer khác để tăng hiệu quả trích xuất các đặc trưng.
 
 \begin{itemize}
-  \item Lớp convolutional: là thành phần quan trọng nhất trong CNNs, sử dụng các learnable filters để tính toán trên ảnh đầu vào, tại mỗi vùng trên ảnh, layer này thực hiện một số phép toán () để tạo ra một giá trị duy nhất cho feature map đầu ra. Lớp convolutional thường sử dụng hàm kích hoạt ReLU cho feature map đầu ra.
-  \item Lớp pooling: thường nằm sau một convolutional layer để làm giảm kích cỡ (chiều rộng, chiều cao) của feature map để giảm thời gian tính toán. Một thuật toán pooling thường được sử dụng là max pooling.
-  \item Lớp dense (fully-connected): thực hiện việc phân lớp dựa trên feature map được trích xuất từ lớp convolutional và lớp pooling.
+  \begin{item}
+	Lớp convolutional: là thành phần quan trọng nhất trong CNN. Mỗi neuron ở lớp này được xem như là một cửa sổ trượt, trượt trên ma trận đầu vào và thực hiện tính toán giá trị tích vô hướng tại mỗi vị trí mà cửa sổ này trượt qua. Các tham số quan trọng ở layer này là kernel size, padding(p) và stride (s). Kernel size là kích thước của cửa sổ trượt, được định nghĩa bằng chiều rộng (w), chiều cao (h) và chiều sâu (d) – chính là số neuron trong layer. Chiều rộng và chiều cao phải nhỏ hơn hoặc bằng chiều rộng(w*) và chiều cao(h*) của ma trận đầu vào. Stride định nghĩa khoảng cách của mỗi bước trượt, trong khi padding quyết định xem bao nhiêu dữ liệu 0 được chèn vào rìa của ma trận đầu vào. Kích thước đầu ra là $W \times H \times d$ với $W = \frac{w^*-w+2p}{s}+1$ và $H = \frac{h^*-h+2p}{s}+1$. Lớp convolutional thường sử dụng hàm kích hoạt ReLU cho feature map đầu ra.
+	\begin{figure}[!htb]
+		\centering
+		\includegraphics[width=\linewidth]{ActivationMap.png}
+		\caption{Activation Map\cite{adeshpande3cnn1}}\label{activation_map}
+	\end{figure}
+  \end{item}
+  
+  \begin{item}
+  Lớp pooling: thường nằm sau một convolutional layer để làm giảm kích cỡ cũng như các dữ liệu dư thừa của feature map. Một thuật toán pooling thường được sử dụng là max pooling. Max pooling sử dụng cửa sổ trượt trượt không trùng lắp qua ma trận đầu vào và chọn ra giá trị lớn nhất nằm trong cửa sổ để xây dựng ma trận đầu ra.
+  \begin{figure}[!htb]
+		\centering
+		\includegraphics[width=\linewidth]{max_pooling.png}
+		\caption{Max pooling}\label{max_pooling}
+	\end{figure}
+  \end{item} 
+  \begin{item}
+  Lớp dense (fully-connected): Thường thì có ít nhất 2 lớp dense nằm ở cuối cùng của mô hình CNN. Các lớp dense phía trước có nhiệm vụ làm phẳng (flatten) feature map trong khi lớp cuối cùng thực hiện việc predict bằng một mô hình regression.
+  \end{item}
 \end{itemize}
 
 \begin{figure}[!htb]
@@ -41,18 +58,18 @@ CNNs được tạo thành từ các lớp, mỗi lớp là một đơn vị tí
 	\begin {minipage}{0.48\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{neuron_model.jpeg}
-		\caption{Một neuron trong CNNs}\label{Fig:neural_model}
+		\caption{Một neuron trong CNN}\label{Fig:neural_model}
 	\end{minipage}
 \end{figure}
 
 \section{Region-based Convolutional Neural Networks}
 
-Region-based Convolutional Neural Networks (R-CNNs) là một mô hình nhận dạng vật thể (Object detection Model) do Ross Girshick, Jeff Donahue, Trevor Darrell và Jitendra Malik (UC Berkeley) đề xuất. Ý tưởng mô hình là với mỗi dữ liệu đầu vào, thực hiện trích xuất (extract) region proposals, trích xuất vector đặc trưng cho mỗi region, từ đó tiến hành việc phân lớp. Giai đoạn cuối cùng là hiệu chỉnh lại tọa độ của các region bằng một mô hình linear regression đơn giản.
+Region-based Convolutional Neural Networks (R-CNN) là một mô hình nhận dạng vật thể (Object detection Model) do Ross Girshick, Jeff Donahue, Trevor Darrell và Jitendra Malik (UC Berkeley) đề xuất. Ý tưởng mô hình là với mỗi dữ liệu đầu vào, thực hiện trích xuất (extract) region proposals, trích xuất vector đặc trưng cho mỗi region, từ đó tiến hành việc phân lớp. Giai đoạn cuối cùng là hiệu chỉnh lại tọa độ của các region bằng một mô hình linear regression đơn giản.
 
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[width=\linewidth]{rcnn.PNG}
-	\caption{Kiến trúc của R-CNNs}\label{Fig:rcnn}
+	\caption{Kiến trúc của R-CNN}\label{Fig:rcnn}
 \end{figure}
 
 \subsection{Selective search}
@@ -127,7 +144,7 @@ Region Proposal Network (RPN) nhận đầu vào là feature map của dữ li�
 	\caption{Region Proposal Network}\label{Fig:rpn}
 \end{figure}
 
-\section{Anchor}
+\subsection{Anchor}
 
 Tại mỗi location , có k anchor được tạo ra. Mỗi anchor được định nghĩa bởi tâm của location, scale và aspect ratio. Mặc định có 3 scale và 3 aspect ratio nên , tức là có 9 anchor (các anchor này cùng có chung một tâm).
 
