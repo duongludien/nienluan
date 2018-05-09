@@ -4,7 +4,7 @@
 
 \section{Convolutional Neural Networks}
 
-\subsection{Convolutional Neural Networks là gì?}
+\subsection{Khái niệm Convolutional Neural Network}
 
 Convolutional Neural Network (CNN) là một kiến trúc mạng neurons giả định trước rằng dữ liệu đầu vào là dữ liệu ảnh, cho phép trích xuất các thuộc tính nhất định trong dữ liệu ảnh đó. Điều này khiến cho việc tính toán trở nên hiệu quả và giảm đáng kể số lượng tham số trong mạng \cite{cs231n}.
 
@@ -13,7 +13,7 @@ Không giống như các mạng neurons thông thường, các lớp của CNN g
 	\begin{minipage}{0.48\textwidth}
 		\centering
 		\includegraphics[width=.74\linewidth]{neural_net2.jpeg}
-		\caption{Regular Neural Network}\label{Fig:NN}
+		\caption{Mạng neurons thông thường}\label{Fig:NN}
 	\end{minipage}\hfill
 	\begin {minipage}{0.48\textwidth}
 		\centering
@@ -24,11 +24,11 @@ Không giống như các mạng neurons thông thường, các lớp của CNN g
 
 \subsection{Kiến trúc cơ bản của CNN}
 
-Các mô hình CNN cơ bản thường bắt đầu bằng một conv layer và kết thúc bằng một (vài) fully connected layer. Ở giữa người ta thường chèn thêm các conv và pooling layer khác để tăng hiệu quả trích xuất các đặc trưng.
+Các mô hình CNN cơ bản thường bắt đầu bằng một lớp convolutional và kết thúc bằng một (vài) lớp fully-connected. Ở giữa là các lớp convolutional và pooling để tăng hiệu quả trích xuất các đặc trưng.
 
 \begin{itemize}
   \begin{item}
-	Lớp convolutional: là thành phần quan trọng nhất trong CNN. Mỗi neuron ở lớp này được xem như là một cửa sổ trượt, trượt trên ma trận đầu vào và thực hiện tính toán giá trị tích vô hướng tại mỗi vị trí mà cửa sổ này trượt qua. Các tham số quan trọng ở layer này là kernel size, padding(p) và stride (s). Kernel size là kích thước của cửa sổ trượt, được định nghĩa bằng chiều rộng (w), chiều cao (h) và chiều sâu (d) – chính là số neuron trong layer. Chiều rộng và chiều cao phải nhỏ hơn hoặc bằng chiều rộng(w*) và chiều cao(h*) của ma trận đầu vào. Stride định nghĩa khoảng cách của mỗi bước trượt, trong khi padding quyết định xem bao nhiêu dữ liệu 0 được chèn vào rìa của ma trận đầu vào. Kích thước đầu ra là $W \times H \times d$ với $W = \frac{w^*-w+2p}{s}+1$ và $H = \frac{h^*-h+2p}{s}+1$. Lớp convolutional thường sử dụng hàm kích hoạt ReLU cho feature map đầu ra.
+	Lớp convolutional: là thành phần quan trọng nhất trong CNN. Mỗi neuron ở lớp này được xem như là một cửa sổ trượt, trượt trên ma trận đầu vào và thực hiện tính toán giá trị tích vô hướng tại mỗi vị trí mà cửa sổ này trượt qua. Các tham số quan trọng ở layer này là kernel size, padding (p) và stride (s). Kernel size là kích thước của cửa sổ trượt, được định nghĩa bằng chiều rộng (w), chiều cao (h) và chiều sâu (d) – chính là số neurons trong layer. Chiều rộng và chiều cao phải nhỏ hơn hoặc bằng chiều rộng (w*) và chiều cao (h*) của ma trận đầu vào. Stride định nghĩa khoảng cách của mỗi bước trượt, trong khi padding quyết định xem bao nhiêu dữ liệu 0 được chèn vào rìa của ma trận đầu vào. Kích thước đầu ra là $W \times H \times d$ với $W = \frac{w^*-w+2p}{s}+1$ và $H = \frac{h^*-h+2p}{s}+1$. Lớp convolutional thường sử dụng hàm kích hoạt ReLU cho feature map đầu ra.
 	\begin{figure}[!htb]
 		\centering
 		\includegraphics[width=\linewidth]{ActivationMap.png}
@@ -64,7 +64,7 @@ Các mô hình CNN cơ bản thường bắt đầu bằng một conv layer và 
 
 \section{Region-based Convolutional Neural Networks}
 
-Region-based Convolutional Neural Networks (R-CNN) là một mô hình nhận dạng vật thể (Object detection Model) do Ross Girshick, Jeff Donahue, Trevor Darrell và Jitendra Malik (UC Berkeley) đề xuất. Ý tưởng mô hình là với mỗi dữ liệu đầu vào, thực hiện trích xuất (extract) region proposals, trích xuất vector đặc trưng cho mỗi region, từ đó tiến hành việc phân lớp. Giai đoạn cuối cùng là hiệu chỉnh lại tọa độ của các region bằng một mô hình linear regression đơn giản.
+Region-based Convolutional Neural Networks (R-CNN) là một mô hình nhận dạng vật thể (object detection model) do Ross Girshick, Jeff Donahue, Trevor Darrell và Jitendra Malik (UC Berkeley) đề xuất. Ý tưởng mô hình là với mỗi dữ liệu đầu vào, thực hiện trích xuất (extract) region proposals, trích xuất vector đặc trưng cho mỗi region, từ đó tiến hành việc phân lớp. Giai đoạn cuối cùng là hiệu chỉnh lại tọa độ của các regions bằng một mô hình linear regression đơn giản.
 
 \begin{figure}[!htb]
 	\centering
@@ -74,7 +74,7 @@ Region-based Convolutional Neural Networks (R-CNN) là một mô hình nhận d�
 
 \subsection{Selective search}
 
-Kết hợp thế mạnh của Exhaustive search và Segmentation, Selective search giúp định vị vị trí của vật thể trong dữ liệu ảnh một cách hiệu quả. Đầu tiên, tập R gồm các initial region được khởi tạo. Tiếp đến, tính độ tương đồng (similarity) giữa các cặp region láng giềng. Các cặp region tương tự nhau nhất sẽ được gộp lại, đồng thời độ tương đồng sẽ được làm mới. Quá trình lặp đi lặp lại cho đến khi dữ liệu ảnh chỉ còn một region duy nhất.
+Kết hợp thế mạnh của Exhaustive search và Segmentation, Selective search giúp định vị vị trí của vật thể trong dữ liệu ảnh một cách hiệu quả. Đầu tiên, tập R gồm các initial regions được khởi tạo. Tiếp đến, tính độ tương đồng (similarity) giữa các cặp regions láng giềng. Các cặp regions tương tự nhau nhất sẽ được gộp lại, đồng thời độ tương đồng sẽ được làm mới. Quá trình lặp đi lặp lại cho đến khi dữ liệu ảnh chỉ còn một region duy nhất.
 
 \begin{figure}[!htb]
 	\centering
@@ -82,7 +82,7 @@ Kết hợp thế mạnh của Exhaustive search và Segmentation, Selective sea
 	\caption{Pseudocode của selective search}\label{Fig:selective_search}
 \end{figure}
 
-Selective search được sử dụng trong giai đoạn trích xuất region proposal của mô hình R-CNN. Với mỗi dữ liệu ảnh, giải thuật thực hiện khoanh vùng 2000 region làm cơ sở cho việc trích xuất vector đặc trưng.
+Selective search được sử dụng trong giai đoạn trích xuất region proposals của mô hình R-CNN. Với mỗi dữ liệu ảnh, giải thuật thực hiện khoanh vùng 2000 regions làm cơ sở cho việc trích xuất vector đặc trưng.
 
 \begin{figure}[!htb]
 	\centering
@@ -100,7 +100,7 @@ Mỗi region sẽ được truyền thẳng (feed forward) qua một mạng CNN 
 	\caption{Features extraction trong R-CNN}\label{Fig:rcnn_features_extraction}
 \end{figure}
 
-Để việc trích xuất đặc trưng có hiệu quả tốt, mạng CNN được huấn luyện với một tập dữ liệu lớn, sau đó thực hiện fine-tuning bằng các mẫu dữ liệu positive và negative được phân loại từ các region. Những region có tỷ lệ IoU\footnote{Intersection over union} với ground-truth box $\geq$ 0.5 sẽ được tính là positive, còn lại là negative.
+Để việc trích xuất đặc trưng có hiệu quả tốt, mạng CNN được huấn luyện với một tập dữ liệu lớn, sau đó thực hiện fine-tuning bằng các mẫu dữ liệu positive và negative được phân loại từ các regions. Những regions có tỷ lệ IoU\footnote{Intersection over union} với ground-truth box $\geq$ 0.5 sẽ được tính là positive, còn lại là negative.
 
 \subsection{SVM classifiers}
 
@@ -112,13 +112,23 @@ Bộ phân lớp SVM có nhiệm vụ gắn nhãn cho các region. Việc huấn
 	\item Tiến hành huấn luyện mô hình trên tập positive và negative. Tập dữ liệu trước tiên sẽ được trích xuất đặc trưng thông qua mạng CNN.
 \end{itemize}
 
-Ở giai đoạn predict, vector đặc trưng sẽ đi qua các bộ phân lớp SVM, từ đó nhãn tương ứng sẽ được gán.
+Ở giai đoạn prediction, vector đặc trưng sẽ đi qua các bộ phân lớp SVM, từ đó nhãn tương ứng sẽ được gán.
 
 \subsection{Bounding-box regression}
 
-Sau khi đã phân lớp xong, vector đặc trưng được truyền qua một mô hình hồi quy tuyến tính để hiệu chỉnh vị trí của Bounding-box. Hàm lỗi của mô hình được định nghĩa như sau:
+Sau khi đã phân lớp xong, vector đặc trưng được truyền qua một mô hình hồi quy tuyến tính để hiệu chỉnh vị trí của bounding-box. Hàm lỗi của mô hình được định nghĩa như sau:
 
-% TODO: Bổ sung phần loss function tại đây
+$L(W) = \displaystyle\frac{1}{2N}\displaystyle\sum_{N}^{}\|Y - W^TF\|^2 + \frac{1}{2}\lambda\|W\|^2$
+
+với $Y = 
+\begin{bmatrix}
+	\displaystyle\frac{G_x - P_x}{P_w}; & \displaystyle\frac{G_y - P_y}{P_h}; & \log\left(\displaystyle\frac{G_w}{P_w}\right); & \log\left(\displaystyle\frac{G_h}{P_h}\right)
+\end{bmatrix}
+$
+
+trong đó $P = \left[P_x; P_y; P_w; P_h\right]$ là ma trận tọa độ tâm và kích thước của region, tương tự với ground-truth box $G = \left[G_x; G_y; G_w; G_h\right]$. $F$ là ma trận các vector đặc trưng được trích xuất từ các region. 
+
+Predicted output sẽ được chuyển ngược lại thành tọa độ và kích thước. 
 
 \section{Fast R-CNN}
 
@@ -156,6 +166,21 @@ Tại mỗi location , có k anchor được tạo ra. Mỗi anchor được đ�
 
 \subsection{Loss function}
 
-% TODO: Còn nữa
+Mỗi anchor sẽ được gắn nhãn là 1 (positive) hoặc 0 (negative) tùy thuộc vào tỷ lệ IoU giữa nó và ground-truth box. Tập positive bao gồm những anchor có tỷ lệ IoU với một ground-truth box là lớn nhất hoặc tỷ lệ IoU với bất kỳ ground-truth box lớn hơn 0.7. Tập negative chứa những anchor có tỷ lệ IoU với tất cả ground-truth box nhỏ hơn 0.3.
+
+Hàm mất mát được định nghĩa như sau: 
+
+$L(\{p_i\}, t\{t_i\}) = \displaystyle\frac{1}{N_{cls}}\displaystyle\sum_{i}^{} L_{cls}(p_i, p_i^*)+\lambda\displaystyle\frac{1}{N_{reg}}\displaystyle\sum_{i}^{}p_i^*L_{reg}(t_i,t_i^*)$
+
+với $L_{cls}(p_i, p_i^*) = -p_i^*\log{p_i} - (1 - p_i^*)\log{(1-p_i)}$
+
+và $L_{reg}(t_i,t_i^*) = 
+\begin{cases}
+    0.5\|t_i - t_i^*\|^2	& \quad \text{nếu }\|t_i - t_i^*\| < 1\\
+    \|t_i - t_i^*\| - 0.5  	& \quad \text{các trường hợp còn lại}
+\end{cases}
+$
+
+\textit{Trong đó $p_i$ là xác xuất để anchor thứ $i$ chứa vật thể, $p^*_i$ là nhãn của anchor, $t_i$ và $t^*_i$ là vector 4 chiều chứa vị trí của predicted box và positive anchor.}
 
 \end{document}

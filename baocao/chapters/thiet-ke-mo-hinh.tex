@@ -4,7 +4,7 @@
 
 \section{Thu thập và xử lý dataset}
 
-Chúng tôi đã chụp/trích từ video 3600 ảnh về 32 loại biển báo thường gặp trong nội đô thành phố Cần Thơ. Tập dữ liệu sau đó được xử lý, khoanh vùng và gắn nhãn trước khi chia thành 2 tập con: train và test với tỷ lệ 0.795/0.205.
+Chúng tôi đã chụp và trích từ video hơn 3600 ảnh về 32 loại biển báo thường gặp trong nội ô thành phố Cần Thơ (Hình \ref{Fig:dataset_records}). Tập dữ liệu sau đó được xử lý, khoanh vùng và gắn nhãn trước khi chia thành 2 tập con: training set và test set với tỷ lệ 0.795/0.205.
 
 \begin{figure}[!htb]
 	\centering
@@ -12,15 +12,15 @@ Chúng tôi đã chụp/trích từ video 3600 ảnh về 32 loại biển báo 
 	\caption{Một số mẫu dữ liệu trong dataset}\label{Fig:dataset_records}
 \end{figure}
 
-Trước tiên, chúng tôi resize chúng về cùng kích cỡ $450 \times 800$. Do các bức ảnh chứa nhiều metadata khác nhau (vì được chụp/ghi hình từ nhiều loại thiết bị) nên một phần phải trải qua thêm các bước rotate, expand, crop. Sau đó, các đối tượng biển báo nằm trong các mẫu dữ liệu được khoanh vùng và gắn nhãn bằng phần mềm mã nguồn mở LabelImg\cite{labelimg}. Mỗi bức ảnh sẽ sinh ra tương ứng một dữ liệu xml chứa các thông tin như id, path, class, bouding-box của bức ảnh đó. Giai đoạn này đòi hỏi sự kiên nhẫn và cẩn thận vì bất kỳ sai sót nào cũng có thể làm ảnh hưởng đến kết quả huấn luyện (Hình \ref{Fig:labelimg}).
+Trước tiên, chúng tôi resize tất cả hình ảnh về cùng kích cỡ $450 \times 800$. Do các bức ảnh chứa nhiều metadata khác nhau (vì được chụp hay ghi hình từ nhiều loại thiết bị) nên một phần phải trải qua thêm các bước rotate, expand, crop. Sau đó, các đối tượng biển báo nằm trong các mẫu dữ liệu được khoanh vùng và gắn nhãn bằng phần mềm mã nguồn mở labelImg\cite{labelimg}. Mỗi bức ảnh sẽ sinh ra tương ứng một file XML chứa các thông tin như id, path, class, bouding-box của bức ảnh đó. Giai đoạn này đòi hỏi sự kiên nhẫn và cẩn thận vì bất kỳ sai sót nào cũng có thể làm ảnh hưởng đến kết quả huấn luyện (Hình \ref{Fig:labelimg}).
 
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[width=\linewidth]{labelimg.png}
-	\caption{Xử lý dữ liệu bằng phần mềm LabelImg}\label{Fig:labelimg}
+	\caption{Xử lý dữ liệu bằng phần mềm labelImg}\label{Fig:labelimg}
 \end{figure}
 
-Tiếp đến, dataset được xáo trộn để tăng hiệu quả huấn luyện. Chúng tôi chọn ngẫu nhiên 737(20.5\%) mẫu dữ liệu làm tập test, số còn lại nằm trong tập train. Cuối cùng dữ liệu ảnh cùng với các thông tin trong các xml tương ứng sẽ được mã hóa thành định dạng tfrecord. Chương trình sử dụng định dạng này để tải lên dataset, phục vụ quá trình huấn luyện.
+Tiếp đến, dataset được xáo trộn để tăng hiệu quả huấn luyện. Chúng tôi chọn ngẫu nhiên 737 (20.5\%) mẫu dữ liệu làm tập test, số còn lại nằm trong tập train. Cuối cùng dữ liệu ảnh cùng với các thông tin trong các XML tương ứng sẽ được mã hóa thành định dạng TFRecord. Chương trình sử dụng định dạng này để tải lên dataset, phục vụ quá trình huấn luyện.
 
 \begin{table}[!htb]
 \begin{longtable}{| l | l | c | c |}
@@ -33,7 +33,7 @@ Tiếp đến, dataset được xáo trộn để tăng hiệu quả huấn luy�
 	\hline
 	c\_106b & Cấm ô tô tải & 54 & 16\\
 	\hline
-	c\_107 & Cấm ô tô  khách và ô tô  tải & 98 & 32\\
+	c\_107 & Cấm ô tô  khách và ô tô  tải & 98 & 32\\
 	\hline
 	c\_115 & Hạn chế trọng lượng xe & 240 & 70\\
 	\hline
@@ -97,4 +97,19 @@ Tiếp đến, dataset được xáo trộn để tăng hiệu quả huấn luy�
 \caption{Thông tin về tập dữ liệu}
 \label{Table:datset}
 \end{table}
+
+\section{Xây dựng mô hình}
+
+Chúng tôi sử dụng mô hình Faster R-CNN với feature extractor là mạng Inception-v2 bao gồm ??? layer. Kỹ thuật transfer learning được áp dụng để rút ngắn thời gian huấn luyện.  Sau 200,000 steps, mô hình hội tụ với giá trị total loss là 0.008 (Hình \ref{Fig:total_loss.png}).
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=\linewidth]{total_loss.png}
+	\caption{Mô hình hội tụ sau 200,000 steps với giá trị total loss là 0.008}\label{Fig:total_loss.png}
+\end{figure}
+
+% TODO: Bảng mAP
+
+Mô hình nhận dạng khá tốt với đa số các lớp biển báo. tuy nhiên đối với một số lớp tương đồng nhau, hiệu quả phân lớp chưa thật sự tốt. Xét trên khía cạnh localization, mô hình cơ bản đáp ứng được yêu cầu đặt ra.
+
 \end{document}
