@@ -6,15 +6,15 @@
 
 Chúng tôi đã chụp và trích từ video hơn 3600 ảnh về 32 loại biển báo thường gặp trong nội ô thành phố Cần Thơ (Hình \ref{Fig:dataset_records}). Tập dữ liệu sau đó được xử lý, khoanh vùng và gắn nhãn trước khi chia thành 2 tập con: training set và test set với tỷ lệ 0.795/0.205.
 
-\begin{figure}[!htb]
+\begin{figure}[H]
 	\centering
-	\includegraphics[width=\linewidth]{dataset.png}
+	\includegraphics[width=15cm]{dataset.png}
 	\caption{Một số mẫu dữ liệu trong dataset}\label{Fig:dataset_records}
 \end{figure}
 
 Trước tiên, chúng tôi resize tất cả hình ảnh về cùng kích cỡ $450 \times 800$. Do các bức ảnh chứa nhiều metadata khác nhau (vì được chụp hay ghi hình từ nhiều loại thiết bị) nên một phần phải trải qua thêm các bước rotate, expand, crop. Sau đó, các đối tượng biển báo nằm trong các mẫu dữ liệu được khoanh vùng và gắn nhãn bằng phần mềm mã nguồn mở labelImg\cite{labelimg}. Mỗi bức ảnh sẽ sinh ra tương ứng một file XML chứa các thông tin như id, path, class, bouding-box của bức ảnh đó. Giai đoạn này đòi hỏi sự kiên nhẫn và cẩn thận vì bất kỳ sai sót nào cũng có thể làm ảnh hưởng đến kết quả huấn luyện (Hình \ref{Fig:labelimg}).
 
-\begin{figure}[!htb]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=\linewidth]{labelimg.png}
 	\caption{Xử lý dữ liệu bằng phần mềm labelImg}\label{Fig:labelimg}
@@ -22,7 +22,9 @@ Trước tiên, chúng tôi resize tất cả hình ảnh về cùng kích cỡ 
 
 Tiếp đến, dataset được xáo trộn để tăng hiệu quả huấn luyện. Chúng tôi chọn ngẫu nhiên 737 (20.5\%) mẫu dữ liệu làm tập test, số còn lại nằm trong tập train. Cuối cùng dữ liệu ảnh cùng với các thông tin trong các XML tương ứng sẽ được mã hóa thành định dạng TFRecord. Chương trình sử dụng định dạng này để tải lên dataset, phục vụ quá trình huấn luyện.
 
-\begin{table}[!htb]
+Thông tin cụ thể về tập dữ liệu được cho trong Bảng \ref{Table:datset}.
+
+\begin{table}[H]
 \begin{longtable}{| l | l | c | c |}
 	\hline
 	\thead{Nhãn} & \thead{Mô tả} & \thead{Training set} & \thead{Test set}\\
@@ -100,9 +102,13 @@ Tiếp đến, dataset được xáo trộn để tăng hiệu quả huấn luy�
 
 \section{Xây dựng mô hình}
 
-Chúng tôi sử dụng mô hình Faster R-CNN với feature extractor là mạng Inception-v2 bao gồm ??? layer. Kỹ thuật transfer learning được áp dụng để rút ngắn thời gian huấn luyện.  Sau 200,000 steps, mô hình hội tụ với giá trị total loss là 0.008 (Hình \ref{Fig:total_loss.png}).
+Chúng tôi sử dụng mô hình Faster R-CNN với feature extractor là mạng Inception-v2. Kỹ thuật transfer learning được áp dụng để rút ngắn thời gian huấn luyện. 
 
-\begin{figure}[!htb]
+Sau 200,000 steps, mô hình hội tụ với giá trị total loss là 0.008 (Hình \ref{Fig:total_loss.png}).
+
+% TODO: Bổ sung kiến trúc mô hình
+
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=\linewidth]{total_loss.png}
 	\caption{Mô hình hội tụ sau 200,000 steps với giá trị total loss là 0.008}\label{Fig:total_loss.png}
