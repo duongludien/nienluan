@@ -133,6 +133,30 @@ Predicted output sẽ được chuyển ngược lại thành tọa độ và k�
 \section{Fast R-CNN}
 
 % TODO: Bổ sung phần này
+Fast R-CNN là một phiên bản cải tiến của R-CNN. Fast R-CNN nhận vào cả nội dung của ảnh và một tập các region proposals của ảnh đó, dữ liệu ảnh được feed forward qua một số lớp convolutional và max pooling tạo ra feature map. Sau đó, với mỗi object proposal, một lớp region of interest (RoI) pooling được sử dụng để trích xuất feature vector từ feature map. Mỗi feature vector lại tiếp tục được feed forward qua các lớp fully-connected tạo ra một RoI feature vector rồi cuối cùng được chia thành hai nhánh: một nhánh softmax dùng để dự báo là các vật thể thuộc lớp (class) nào, nhánh còn lại cho biết vị trí của các bounding-box chứa các vật thể đó. Kiến trúc của Fast R-CNN như hình \ref{Fig:fastrcnn}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth]{fast-rcnn-arch.png}
+	\caption{Kiến trúc của Fast R-CNN}\label{Fig:fastrcnn}
+\end{figure}
+
+\subsection{Lớp RoI pooling}
+
+Lớp RoI pooling được sử dụng để chuyển đổi các đặc trưng trên một ảnh thực sự sang feature map với kích thước bé hơn $(H \times W)$. Mỗi một RoI được định nghĩa bởi 4 tham số $(r, c, h, w)$ biểu diễn cho góc trên bên trái $(r, c)$ và chiều cao, chiều rộng $(h, w)$.
+
+\subsection{Multi-task loss}
+
+Như đã trình bày ở trên, Fast R-CNN có 2 lớp đầu ra: một dùng để tính xác suất xem vật thể được phát hiện thuộc lớp (class) nào trong $K+1$ lớp (K loại vật thể và 1 cho phần nền), $p = (p_0,\ldots, p_K)$, một dùng để tính toán vị trí của bounding-box $t^k = \left(t^k_x, t^k_y, t^k_w, t^k_h\right)$.
+
+Mỗi RoI trong tập train được gán nhãn với một ground-truth class là $u$ và ground-truth bounding-box là $v$. Hàm lỗi $L$ được tính như sau:
+
+$L\left(p, u, t^u, v\right) = L_{cls}\left(p, u\right) + \lambda\left[u\geq1\right]L_{loc}\left(t^u, v\right)$
+
+với $L_{cls}\left(p, u\right) = -\log p_u$ là hàm mất mát $\log$ cho lớp đúng $u$.
+
+Hàm mất mát $L_{loc}$ định nghĩa dựa trên bounding-box đúng (nhãn) trên tập dữ liệu $u, v = \left(v_x, v_y, v_w, v_h\right)$  và bounding-box được dự đoán bởi mô hình $t^u = \left(t^u_x, t^u_y, t^u_w, t^u_h\right)$ (trên lớp $u$). Biểu thức $\left[u \geq 1\right]$ có giá trị là 1 khi $u \geq 1$ và ngược lại có giá trị là 0.
+
 
 \section{Faster R-CNN}
 
