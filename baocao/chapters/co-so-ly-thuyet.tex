@@ -157,6 +157,16 @@ với $L_{cls}\left(p, u\right) = -\log p_u$ là hàm mất mát $\log$ cho lớ
 
 Hàm mất mát $L_{loc}$ định nghĩa dựa trên bounding-box đúng (nhãn) trên tập dữ liệu $u, v = \left(v_x, v_y, v_w, v_h\right)$  và bounding-box được dự đoán bởi mô hình $t^u = \left(t^u_x, t^u_y, t^u_w, t^u_h\right)$ (trên lớp $u$). Biểu thức $\left[u \geq 1\right]$ có giá trị là 1 khi $u \geq 1$ và ngược lại có giá trị là 0.
 
+$L_{loc}\left(t^u, v\right) = \displaystyle\sum_{i \in \{x, y, w, h\}}\text{smooth}_{L_1}\left(t^u_i - v_i\right)$
+
+với $\text{smooth}_{L_1}(x) = 
+\begin{cases}
+	0.5x^2	& \quad \text{nếu } \lvert x\rvert < 1\\
+	\lvert x\rvert - 0.5 & \quad \text{các trường hợp khác}
+\end{cases}
+$
+
+
 
 \section{Faster R-CNN}
 
