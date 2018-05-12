@@ -102,9 +102,33 @@ Thông tin cụ thể về tập dữ liệu được cho trong Bảng \ref{Tabl
 
 \section{Xây dựng mô hình}
 
-Chúng tôi sử dụng mô hình Faster R-CNN với feature extractor là mạng Inception-v2. Kỹ thuật transfer learning được áp dụng để rút ngắn thời gian huấn luyện. 
+Chúng tôi sử dụng mô hình Faster R-CNN với feature extractor là mạng Inception-v2 với 61 layers. Kỹ thuật transfer learning được áp dụng để rút ngắn thời gian huấn luyện. 
 
-Sau 200,000 steps, mô hình hội tụ với giá trị total loss là 0.008 (Hình \ref{Fig:total_loss.png}).
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth]{arch_1.png}
+	\caption{Kiến trúc mô hình}\label{Fig:arch_1}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth]{arch_2.png}
+	\caption{Kiến trúc mô hình (tiếp)}\label{Fig:arch_2}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\linewidth]{arch_3.png}
+	\caption{Kiến trúc mô hình (tiếp)}\label{Fig:arch_3}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth]{arch_4.png}
+	\caption{Kiến trúc mô hình (tiếp)}\label{Fig:arch_4}
+\end{figure}
+
+Sau 200,000 ``steps'', mô hình hội tụ với giá trị total loss là 0.008 (Hình \ref{Fig:total_loss.png}).
 
 % TODO: Bổ sung kiến trúc mô hình
 
@@ -117,5 +141,38 @@ Sau 200,000 steps, mô hình hội tụ với giá trị total loss là 0.008 (H
 % TODO: Bảng mAP
 
 Mô hình nhận dạng khá tốt với đa số các lớp biển báo. tuy nhiên đối với một số lớp tương đồng nhau, hiệu quả phân lớp chưa thật sự tốt. Xét trên khía cạnh localization, mô hình cơ bản đáp ứng được yêu cầu đặt ra.
+\\
+
+
+\begin{table}[H]
+\noindent
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+	\hline
+	\textbf{ID} & 1  & 2  & 3  & 4  & 5  & 6  & 7  & 8\\
+	\hline
+	\textbf{AP} & 1  & 1  & 1  & 1  & 1  & 1  & 0.999 & 0.731\\
+	\hline\hline
+	
+	\textbf{ID} & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16\\
+	\hline
+	\textbf{AP} & 0.69 & 1 & 1 & 1 & 1 & 1 & 1 & 0.963\\
+	\hline\hline
+	
+	\textbf{ID} & 17 & 18 & 19 & 20 & 21 & 22 & 23 & 24\\
+	\hline
+	\textbf{AP} & 0.919 & 0.944 & 0.981 & 1 & 1 & 1 & 1 & 0.998\\
+	\hline\hline
+	
+	\textbf{ID} & 25 & 26 & 27 & 28 & 29 & 30 & 31 & 32\\
+	\hline
+	\textbf{AP} & 1 & 0.997 & 0.915 & 0.809 & 1 & 1 & 1 & 0.902\\
+	\hline\hline
+	\multicolumn{9}{|c|}{\textbf{mAP}: 0.964}\\
+	\hline
+\end{tabular}
+\caption{Độ chính xác trung bình}
+\label{Table:mAP}
+\end{table}
 
 \end{document}
