@@ -1,6 +1,6 @@
 # Niên luận ngành CNTT
 
-Đề tài: Nhận dạng biển báo giao thông bằng giải thuật Faster-RCNN
+Đề tài: Nhận dạng biển báo giao thông bằng giải thuật Faster R-CNN
 
 Sinh viên thực hiện:
 <ul>
